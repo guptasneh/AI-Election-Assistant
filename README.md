@@ -23,7 +23,7 @@
 
 <br/>
 
-[🚀 Live Demo](#-quick-start) · [✨ Features](#-core-modules) · [🛠 Tech Stack](#-tech-stack) · [📦 Docker Deploy](#-docker-deployment)
+[🚀 [![live demo]](https://election-ai-assistant-app-527033579178.us-central1.run.app) · [✨ Features](#-core-modules) · [🛠 Tech Stack](#-tech-stack) · [📦 Docker Deploy](#-docker-deployment)
 
 </div>
 
