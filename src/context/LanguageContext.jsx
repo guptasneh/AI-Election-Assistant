@@ -10,13 +10,13 @@ export const LanguageProvider = ({ children }) => {
   const setLanguage = (lang) => {
     setLanguageState(lang);
     
-    // Set the Google Translate cookie
-    // googtrans format: /auto/en or /auto/hi
+    // Set the Google Translate cookie so translation persists on reload
+    // googtrans format: /en/hi
     document.cookie = `googtrans=/en/${lang}; path=/`;
     document.cookie = `googtrans=/en/${lang}; domain=${window.location.hostname}; path=/`;
-    
-    // Reload the page to apply the translation
-    window.location.reload();
+    // Note: Do NOT reload the page here - the AI assistant syncs this on mount
+    // and a reload would cause an infinite loop. Google Translate picks up the
+    // cookie on next manual reload if the user wants full-page translation.
   };
 
   useEffect(() => {

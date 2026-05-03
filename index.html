@@ -7,12 +7,26 @@
     <title>AI Election Assistant</title>
     <style>
       /* Hide the default Google Translate widget and top banner */
-      .VIpgJd-ZVi9od-l4eHX-hSRGPd { display: none !important; }
-      .VIpgJd-ZVi9od-aZ2wEe-wOHMyf { display: none !important; }
-      .VIpgJd-ZVi9od-aZ2wEe-wOHMyf-ti6hGc { display: none !important; }
-      .goog-te-banner-frame.skiptranslate, .goog-te-gadget-icon { display: none !important; }
-      body { top: 0px !important; }
-      #google_translate_element { display: none !important; }
+      .VIpgJd-ZVi9od-l4eHX-hSRGPd, 
+      .VIpgJd-ZVi9od-aZ2wEe-wOHMyf, 
+      .VIpgJd-ZVi9od-aZ2wEe-wOHMyf-ti6hGc,
+      .goog-te-banner-frame,
+      #goog-gt-tt,
+      .goog-te-balloon-frame,
+      .goog-te-gadget-icon { 
+        display: none !important; 
+        visibility: hidden !important;
+      }
+      body { 
+        top: 0px !important; 
+        position: static !important;
+      }
+      .skiptranslate {
+        display: none !important;
+      }
+      #google_translate_element { 
+        display: none !important; 
+      }
     </style>
   </head>
   <body>

@@ -126,13 +126,7 @@ export default function EVMSimulator() {
         <div className="flex flex-col items-center">
           <div className="w-full max-w-sm relative">
             
-            {/* Educational Tooltip */}
-            <div className="absolute -right-16 top-0 bg-blue-500/20 border border-blue-500/50 p-4 rounded-xl max-w-[200px] hidden md:block">
-              <div className="flex items-start gap-2 text-blue-400 text-sm">
-                <Info className="w-5 h-5 shrink-0" />
-                <p>The VVPAT slip stays visible for 7 seconds so you can verify your vote.</p>
-              </div>
-            </div>
+
 
             <div className="bg-[#2d3748] rounded-t-3xl p-6 border-4 border-b-0 border-gray-600 shadow-2xl relative z-10">
               <h2 className="text-xl font-bold text-white mb-2 text-center flex items-center justify-center gap-2">

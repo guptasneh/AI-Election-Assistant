@@ -1,17 +1,18 @@
 import React from 'react';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
-import { AIChatbot } from './AIChatbot';
+import { AIVoiceAssistant } from '../ai-voice/AIVoiceAssistant';
 
 export const Layout = ({ children }) => {
   return (
-    <div className="min-h-screen flex flex-col bg-gray-950 font-sans text-gray-100 selection:bg-emerald-500/30">
+    <div className="min-h-screen flex flex-col bg-slate-950 text-slate-50 font-sans selection:bg-emerald-500/30">
       <Navbar />
-      <main className="flex-1 mt-20"> {/* Margin to account for fixed navbar */}
+      <main className="flex-grow flex flex-col mt-20">
         {children}
       </main>
-      <AIChatbot />
       <Footer />
+      {/* Replaced legacy AIChatbot with the new AIVoiceAssistant */}
+      <AIVoiceAssistant />
     </div>
   );
 };
