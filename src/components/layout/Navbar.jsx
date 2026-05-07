@@ -1,77 +1,66 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useLanguage } from '../../context/LanguageContext';
-import { useAuth } from '../../context/AuthContext';
-import { Globe, User, LogOut } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Search, ShoppingCart, Heart, User, Sparkles } from 'lucide-react';
+import { useShopStore } from '../../context/ShopContext';
 
 export const Navbar = () => {
-  const { language, setLanguage } = useLanguage();
-  const { isAuthenticated, user, role, logout } = useAuth();
+  const { cart, wishlist, searchQuery, setSearchQuery } = useShopStore();
   const navigate = useNavigate();
 
-  const handleLanguageToggle = () => {
-    setLanguage(language === 'en' ? 'hi' : 'en');
-  };
-
-  const getDashboardLink = () => {
-    if (role === 'admin') return '/admin-dashboard';
-    if (role === 'officer') return '/officer-dashboard';
-    return '/dashboard';
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+    }
   };
 
   return (
-    <nav className="fixed w-full z-50 glass-panel border-b border-white/10 px-6 py-4 flex items-center justify-between">
-      <Link to="/" className="flex items-center gap-2">
-        <motion.div 
-          whileHover={{ rotate: 180 }}
-          transition={{ duration: 0.5 }}
-          className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-blue-500 flex items-center justify-center shadow-[0_0_15px_rgba(16,185,129,0.5)]"
-        >
-          <span className="text-white font-bold text-lg">AI</span>
-        </motion.div>
-        <span className="font-heading font-bold text-xl text-white tracking-wide">
-          Election <span className="text-emerald-500">Assistant</span>
-        </span>
-      </Link>
+    <nav className="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-white/10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          <Link to="/" className="flex items-center gap-2">
+            <Sparkles className="w-6 h-6 text-emerald-500" />
+            <span className="text-xl font-heading font-bold text-gradient">AI.Store</span>
+          </Link>
 
-      <div className="hidden md:flex items-center gap-8">
-        <Link to="/" className="text-gray-300 hover:text-white transition-colors">Home</Link>
-        <Link to="/education" className="text-gray-300 hover:text-white transition-colors">Education</Link>
-        <Link to="/booth-locator" className="text-gray-300 hover:text-white transition-colors">Booth Locator</Link>
-        <Link to="/fact-check" className="text-gray-300 hover:text-white transition-colors">Fact Check</Link>
-      </div>
+          <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-md mx-8 relative">
+            <input
+              type="text"
+              placeholder="Search products using AI..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-white/5 border border-white/10 rounded-full py-2 pl-4 pr-10 text-sm focus:outline-none focus:border-emerald-500 transition-colors"
+            />
+            <button type="submit" className="absolute right-3 top-2.5 text-gray-400 hover:text-white transition-colors">
+              <Search className="w-4 h-4" />
+            </button>
+          </form>
 
-      <div className="flex items-center gap-4">
-        <button 
-          onClick={handleLanguageToggle}
-          className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
-          title="Switch Language"
-        >
-          <Globe className="w-5 h-5 text-blue-400" />
-          <span className="text-sm font-medium uppercase">{language}</span>
-        </button>
-
-        {isAuthenticated ? (
-          <div className="flex items-center gap-4 ml-4">
-            <Link to={getDashboardLink()} className="flex items-center gap-2 text-emerald-400 hover:text-emerald-300 transition-colors">
-              <User className="w-5 h-5" />
-              <span className="hidden sm:inline">{user?.name || 'Dashboard'}</span>
+          <div className="flex items-center gap-6">
+            <Link to="/wishlist" className="relative text-gray-300 hover:text-white transition-colors">
+              <Heart className="w-5 h-5" />
+              {wishlist.length > 0 && (
+                <span className="absolute -top-2 -right-2 bg-pink-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+                  {wishlist.length}
+                </span>
+              )}
             </Link>
-            <button onClick={() => { logout(); navigate('/'); }} className="text-gray-400 hover:text-red-400 transition-colors">
-              <LogOut className="w-5 h-5" />
+            
+            <button className="relative text-gray-300 hover:text-white transition-colors">
+              <ShoppingCart className="w-5 h-5" />
+              {cart.length > 0 && (
+                <span className="absolute -top-2 -right-2 bg-emerald-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+                  {cart.length}
+                </span>
+              )}
+            </button>
+            
+            <button className="text-gray-300 hover:text-white transition-colors">
+              <User className="w-5 h-5" />
             </button>
           </div>
-        ) : (
-          <Link 
-            to="/auth" 
-            className="ml-4 px-5 py-2 rounded-full border border-emerald-500/50 hover:bg-emerald-500/10 text-emerald-400 font-medium transition-all shadow-[0_0_10px_rgba(16,185,129,0.2)] hover:shadow-[0_0_15px_rgba(16,185,129,0.4)]"
-          >
-            Login / Verify
-          </Link>
-        )}
+        </div>
       </div>
     </nav>
   );
 };
-

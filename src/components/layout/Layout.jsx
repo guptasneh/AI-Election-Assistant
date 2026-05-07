@@ -1,18 +1,16 @@
 import React from 'react';
 import { Navbar } from './Navbar';
-import { Footer } from './Footer';
-import { AIVoiceAssistant } from '../ai-voice/AIVoiceAssistant';
+import { Outlet } from 'react-router-dom';
+import { VoiceChatbot } from '../VoiceChatbot';
 
-export const Layout = ({ children }) => {
+export const Layout = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-slate-950 text-slate-50 font-sans selection:bg-emerald-500/30">
+    <div className="min-h-screen bg-gradient-to-br from-[#050505] via-[#0a0a0a] to-[#121212] text-white">
       <Navbar />
-      <main className="flex-grow flex flex-col mt-20">
-        {children}
+      <main className="pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <Outlet />
       </main>
-      <Footer />
-      {/* Replaced legacy AIChatbot with the new AIVoiceAssistant */}
-      <AIVoiceAssistant />
+      <VoiceChatbot />
     </div>
   );
 };
